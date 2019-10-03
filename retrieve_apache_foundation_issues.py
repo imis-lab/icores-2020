@@ -5,46 +5,86 @@ Created on Sun Dec  9 19:27:41 2018
 @author: nkanak
 """
 
+import csv
 import json
+import logging
+
 from jira import JIRA
 
+BLOCK_SIZE = 1000
+# Set this variable to None when the retrieval of all the issues is needed.
+MAX_NUMBER_OF_ITERATIONS = 1
+
+def read_project_names_from_csv_file(filename='projects.csv'):
+    project_names = []
+    with open(filename) as f:
+        csv_reader = csv.DictReader(f)
+        for row in csv_reader:
+            project_names.append(row['project_name'])
+    return project_names
+
+PROJECT_NAMES = read_project_names_from_csv_file()
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s \033[35m%(message)s\033[0m', datefmt='[%d/%b/%Y %H:%M:%S]')
 jira = JIRA('https://issues.apache.org/jira')
 
-# Get all projects.
-projects = jira.projects()
+class DataRetriever(object):
+    def __init__(self, block_size=1000, max_number_of_iterations=None):
+        self.__block_size = block_size
+        self.__max_number_of_iterations = max_number_of_iterations
 
-# Get HADOOP project details.
-hadoop = jira.project('HADOOP')
+    def retrieve_project_data(self, project_name):
+        logging.info('Retrieve project data for %s' % (project_name))
+        # Get X project details.
+        project = jira.project(project_name)
+        return project.raw
+
+    def retrieve_issues(self, project_name):
+        logging.info('Retrieve issues for %s project' % (project_name))
+        logging.info('Retrieval block size: %s, Max number of iterations: %s' % (self.__block_size, self.__max_number_of_iterations))
+        issues = []
+        block_num = 0
+        number_of_iterations = 0
+        while True:
+            number_of_iterations += 1
+            if self.__max_number_of_iterations is not None and number_of_iterations > self.__max_number_of_iterations:
+                break
+
+            logging.debug('%s iteration out of %s' % (number_of_iterations, self.__max_number_of_iterations))
+            start_idx = block_num*self.__block_size
+            # Get X project issues.
+            retrieved_issues = jira.search_issues('project=%s' % (project_name), startAt=start_idx, maxResults=self.__block_size, json_result=True, expand='changelog', fields='summary,assignee,description')
+            if len(retrieved_issues['issues']) == 0:
+                break
+            issues += retrieved_issues['issues']
+
+            block_num += 1
+
+        logging.debug('Retrieved total %s unique issues of project %s' % (len(set([issue['key'] for issue in issues])), project_name))
+        return issues
+
+class DataWriter(object):
+    def __init__(self, indent=2):
+        self.__indent = indent
+
+    def save_project_data_to_json(self, filename, project_data):
+        logging.info('Write project information to file: %s' % (filename))
+        # Save X project details.
+        with open(filename, 'w') as f:
+            json.dump({'data': project_data}, f, indent=self.__indent)
+
+    def save_issues_to_json(self, filename, issues):
+        logging.info('Write project issues to file: %s' % (filename))
+        # Save X project issues to JSON file.
+        with open(filename, 'w') as f:
+            json.dump({'issues': issues}, f, indent=self.__indent)
 
 
-# Get all HADOOP issues.
-hadoop_issues = jira.search_issues('project=HADOOP', maxResults=10000, json_result=True)
-
-def retrieve_project_data(project_name):
-    project = jira.project(project_name)
-    return project.raw
-
-def save_project_data_to_json(filename, project_data):
-    # Save HADOOP project details.
-    with open('hadoop_data.json', 'w') as f:
-        json.dump({'data': project_data}, f, indent=2)
-
-def retrieve_issues(project_name, block_size=1000, max_number_of_iterations=None):
-    issues = []
-    block_num = 0
-    number_of_iterations = 0
-    while True:
-        number_of_iterations += 1
-        start_idx = block_num*block_size 
-        retrieved_issues = jira.search_issues('project=%s' % (project_name), startAt=start_idx, maxResults=block_size, json_result=True, expand='changelog', fields='summary,assignee,description')
-        if len(retrieved_issues['issues']) == 0 or max_number_of_iterations is not None and number_of_iterations >= max_number_of_iterations:
-            break
-        block_num += 1
-        issues += retrieved_issues['issues']
-
-    return issues
-
-def save_issues_to_json(filename, issues):
-    # Save HADOOP issues to JSON file.
-    with open('hadoop_issues.json', 'w') as f:
-        json.dump({'issues': hadoop_issues['issues']}, f, indent=2)
+if __name__ == '__main__':
+    for project_name in PROJECT_NAMES:
+        retriever = DataRetriever(block_size=BLOCK_SIZE, max_number_of_iterations=MAX_NUMBER_OF_ITERATIONS)
+        writer = DataWriter()
+        project_data = retriever.retrieve_project_data(project_name)
+        writer.save_project_data_to_json('data/project_data_%s.json' % (project_name), project_data)
+        issues = retriever.retrieve_issues(project_name)
+        writer.save_issues_to_json('data/issues_%s.json' % (project_name), issues)
