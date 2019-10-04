@@ -99,11 +99,15 @@ class DataWriter(object):
                 })
 
 if __name__ == '__main__':
+    all_issues = []
+    writer = DataWriter()
+    retriever = DataRetriever(block_size=BLOCK_SIZE, max_number_of_iterations=MAX_NUMBER_OF_ITERATIONS)
     for project_name in PROJECT_NAMES:
-        retriever = DataRetriever(block_size=BLOCK_SIZE, max_number_of_iterations=MAX_NUMBER_OF_ITERATIONS)
-        writer = DataWriter()
         project_data = retriever.retrieve_project_data(project_name)
         writer.save_project_data_to_json('data/project_data_%s.json' % (project_name), project_data)
         issues = retriever.retrieve_issues(project_name)
+        all_issues += issues
         writer.save_issues_to_json('data/issues_%s.json' % (project_name), issues)
         writer.save_issues_to_csv('data/issues_%s.csv' % (project_name), issues, keep_only_issues_with_assignee=True)
+    writer.save_issues_to_json('data/all_issues.json', all_issues)
+    writer.save_issues_to_csv('data/all_issues.csv', all_issues, keep_only_issues_with_assignee=True)
