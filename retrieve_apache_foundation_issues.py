@@ -79,6 +79,24 @@ class DataWriter(object):
         with open(filename, 'w') as f:
             json.dump({'issues': issues}, f, indent=self.__indent)
 
+    # Generate a CSV file for descriptive statistics.
+    def save_issues_to_csv(self, filename, issues, keep_only_issues_with_assignee=False):
+        logging.info('Write project issues to csv file: %s' % (filename))
+        logging.debug('Keep only issues with assignee: %s' % (keep_only_issues_with_assignee))
+        fieldnames = ['key', 'summary', 'description', 'assignee']
+        with open(filename, 'w') as f:
+            csv_writer = csv.DictWriter(f, fieldnames=fieldnames)
+            csv_writer.writeheader()
+            for issue in issues:
+                if keep_only_issues_with_assignee is True and issue['fields'].get('assignee') is None:
+                    continue
+
+                csv_writer.writerow({
+                    'key': issue['key'],
+                    'summary': issue['fields']['summary'],
+                    'description': issue['fields']['description'] if not None else '',
+                    'assignee': issue['fields']['assignee']['key'] if issue['fields'].get('assignee') is not None else 'N/A'
+                })
 
 if __name__ == '__main__':
     for project_name in PROJECT_NAMES:
@@ -88,3 +106,4 @@ if __name__ == '__main__':
         writer.save_project_data_to_json('data/project_data_%s.json' % (project_name), project_data)
         issues = retriever.retrieve_issues(project_name)
         writer.save_issues_to_json('data/issues_%s.json' % (project_name), issues)
+        writer.save_issues_to_csv('data/issues_%s.csv' % (project_name), issues, keep_only_issues_with_assignee=True)
