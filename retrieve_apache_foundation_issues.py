@@ -11,9 +11,9 @@ import logging
 
 from jira import JIRA
 
-BLOCK_SIZE = 1000
+BLOCK_SIZE = 100
 # Set this variable to None when the retrieval of all the issues is needed.
-MAX_NUMBER_OF_ITERATIONS = 1
+MAX_NUMBER_OF_ITERATIONS = None
 
 def read_project_names_from_csv_file(filename='projects.csv'):
     project_names = []
@@ -26,17 +26,26 @@ def read_project_names_from_csv_file(filename='projects.csv'):
 PROJECT_NAMES = read_project_names_from_csv_file()
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s \033[35m%(message)s\033[0m', datefmt='[%d/%b/%Y %H:%M:%S]')
-jira = JIRA('https://issues.apache.org/jira')
+
+class DataReader(object):
+    def read_issues_from_json_file(self, filename, keep_only_issues_with_assignee=False):
+        with open(filename) as f:
+            issues = json.load(f)
+        issues = issues['issues']
+        if keep_only_issues_with_assignee is True:
+            issues = [issue for issue in issues if issue['fields'].get('assignee') is not None]
+        return issues
 
 class DataRetriever(object):
-    def __init__(self, block_size=1000, max_number_of_iterations=None):
+    def __init__(self, jira_client, block_size=1000, max_number_of_iterations=None):
+        self.__jira_client = jira_client
         self.__block_size = block_size
         self.__max_number_of_iterations = max_number_of_iterations
 
     def retrieve_project_data(self, project_name):
         logging.info('Retrieve project data for %s' % (project_name))
         # Get X project details.
-        project = jira.project(project_name)
+        project = self.__jira_client.project(project_name)
         return project.raw
 
     def retrieve_issues(self, project_name):
@@ -53,7 +62,7 @@ class DataRetriever(object):
             logging.debug('%s iteration out of %s' % (number_of_iterations, self.__max_number_of_iterations))
             start_idx = block_num*self.__block_size
             # Get X project issues.
-            retrieved_issues = jira.search_issues('project=%s' % (project_name), startAt=start_idx, maxResults=self.__block_size, json_result=True, expand='changelog', fields='summary,assignee,description')
+            retrieved_issues = self.__jira_client.search_issues('project=%s' % (project_name), startAt=start_idx, maxResults=self.__block_size, json_result=True, expand='changelog', fields='summary,assignee,description')
             if len(retrieved_issues['issues']) == 0:
                 break
             issues += retrieved_issues['issues']
@@ -99,15 +108,16 @@ class DataWriter(object):
                 })
 
 if __name__ == '__main__':
+    jira = JIRA('https://issues.apache.org/jira')
     all_issues = []
     writer = DataWriter()
-    retriever = DataRetriever(block_size=BLOCK_SIZE, max_number_of_iterations=MAX_NUMBER_OF_ITERATIONS)
+    retriever = DataRetriever(jira_client=jira, block_size=BLOCK_SIZE, max_number_of_iterations=MAX_NUMBER_OF_ITERATIONS)
     for project_name in PROJECT_NAMES:
         project_data = retriever.retrieve_project_data(project_name)
         writer.save_project_data_to_json('data/project_data_%s.json' % (project_name), project_data)
         issues = retriever.retrieve_issues(project_name)
         all_issues += issues
         writer.save_issues_to_json('data/issues_%s.json' % (project_name), issues)
-        writer.save_issues_to_csv('data/issues_%s.csv' % (project_name), issues, keep_only_issues_with_assignee=True)
+        writer.save_issues_to_csv('data/issues_%s.csv' % (project_name), issues, keep_only_issues_with_assignee=False)
     writer.save_issues_to_json('data/all_issues.json', all_issues)
-    writer.save_issues_to_csv('data/all_issues.csv', all_issues, keep_only_issues_with_assignee=True)
+    writer.save_issues_to_csv('data/all_issues.csv', all_issues, keep_only_issues_with_assignee=False)
