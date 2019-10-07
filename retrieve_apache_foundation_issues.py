@@ -11,7 +11,7 @@ import logging
 
 from jira import JIRA
 
-BLOCK_SIZE = 100
+BLOCK_SIZE = 500
 # Set this variable to None when the retrieval of all the issues is needed.
 MAX_NUMBER_OF_ITERATIONS = None
 
