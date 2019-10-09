@@ -88,6 +88,23 @@ class DataWriter(object):
         with open(filename, 'w') as f:
             json.dump({'issues': issues}, f, indent=self.__indent)
 
+    def save_issues_to_json_minified(self, filename, issues):
+        logging.info('Write project issues to file (minified): %s' % (filename))
+        # Assuming that the issue has an assignee.
+        issues = [{
+            'key': issue['key'],
+            'fields': {
+                'summary': issue['fields']['summary'],
+                'description': issue['fields']['description'],
+                'assignee': {
+                    'key': issue['fields']['assignee']['key']
+                }
+            }
+        } for issue in issues]
+        # Save X project issues to JSON file.
+        with open(filename, 'w') as f:
+            json.dump({'issues': issues}, f, indent=self.__indent)
+
     # Generate a CSV file for descriptive statistics.
     def save_issues_to_csv(self, filename, issues, keep_only_issues_with_assignee=False):
         logging.info('Write project issues to csv file: %s' % (filename))
