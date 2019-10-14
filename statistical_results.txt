@@ -1,0 +1,99 @@
+relative frequencies - 228969 issues
+number of developers: 7914
+
+number of selected developer: 21
+number of selected issues: 57798
+Train size 38724
+Test size 19074
+Number of features 144944
+
+==============================================
+adobejira                           0.128655
+davsclaus                           0.026991
+njiang                              0.008984
+aonishuk                            0.006831
+tabish121                           0.006577
+shazron                             0.006433
+aantonenko                          0.005368
+andrus                              0.005311
+atkach                              0.005001
+wesmckinn                           0.004983
+julianhyde                          0.004852
+andy.seaborne                       0.004809
+purplecabbage                       0.004743
+ababiichuk                          0.004490
+batik-dev@xmlgraphics.apache.org    0.004485
+djohnson                            0.004276
+jbellis                             0.004223
+ancosen                             0.003992
+elserj                              0.003848
+bowserj                             0.003795 -----
+onechiporenko                       0.003782 --------
+slebresne                           0.003677
+gtully                              0.003586
+jaimin                              0.003533
+akovalenko                          0.003310
+dsen                                0.003262
+rxin                                0.003153
+dmitriusan                          0.003140
+u39kun                              0.003118
+szetszwo                            0.003083
+
+=============================================
+adobejira                           29458
+davsclaus                            6180
+njiang                               2057
+aonishuk                             1564
+tabish121                            1506
+shazron                              1473
+aantonenko                           1229
+andrus                               1216
+atkach                               1145
+wesmckinn                            1141
+julianhyde                           1111
+andy.seaborne                        1101
+purplecabbage                        1086
+ababiichuk                           1028
+batik-dev@xmlgraphics.apache.org     1027
+djohnson                              979
+jbellis                               967
+ancosen                               914
+elserj                                881
+bowserj                               869 ----
+onechiporenko                         866 -----
+slebresne                             842
+gtully                                821
+jaimin                                809
+akovalenko                            758
+dsen                                  747
+rxin                                  722
+dmitriusan                            719
+u39kun                                714
+szetszwo                              706
+
+
+Results
+==========================================================================
+accuracy
+(micro)
+(macro)
+(weighted)
+
+Naive bayes #####
+0.8139351997483485
+(0.8139351997483485, 0.8139351997483485, 0.8139351997483485, None)
+(0.7814146457862783, 0.574919890303864, 0.6173828865979649, None)
+(0.83630687491504, 0.8139351997483485, 0.7950237649377736, None)
+Logistic Regression #####
+/home/nkanak/anaconda3/lib/python3.7/site-packages/sklearn/linear_model/logistic.py:758: ConvergenceWarning: lbfgs failed to converge. Increase the number of iterations.
+  "of iterations.", ConvergenceWarning)
+0.8546712802768166
+(0.8546712802768166, 0.8546712802768166, 0.8546712802768167, None)
+(0.7352343663934864, 0.7100369464063512, 0.7213533611330109, None)
+(0.8513407754806861, 0.8546712802768166, 0.8523200118796977, None)
+k-NN #####
+number of neighbors: 16
+0.6806647792806962
+(0.6806647792806962, 0.6806647792806962, 0.6806647792806962, None)
+(0.5272285046022244, 0.36631213520317046, 0.39899389228952115, None)
+(0.6711524939554253, 0.6806647792806962, 0.6512443781268136, None)
