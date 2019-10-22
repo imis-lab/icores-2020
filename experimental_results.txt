@@ -1,0 +1,193 @@
+5.1 Naive ==============================================
+=== Assignment ===
+Relevance of each employee per issue:
+[[  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0  24  75   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0  15   0   0   0   0   0   0   0   0  66]
+ [  0   0   0   0   0   0   0   5   0   0   0   0]
+ [  0  99  16   0   0   0   0   0   0   0   0   7]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   1   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0  93   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   1  69   0   0   0   0   0   0   0   0  19]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [100   0   0  99 100   0 100  67  17 100 100   0]
+ [  0   0   0   0   0   0   0   4   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   8   0   0   4]
+ [  0   0   0   0   0   7   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   5]]
+Employee andrus is assigned to task 4016 (cell position: [0, 10]) with relevance 0
+Employee jbellis is assigned to task 3705 (cell position: [1, 9]) with relevance 0
+Employee wesmckinn is assigned to task 47260 (cell position: [2, 8]) with relevance 75
+Employee elserj is assigned to task 9763 (cell position: [3, 6]) with relevance 0
+Employee djohnson is assigned to task 5632 (cell position: [4, 4]) with relevance 0
+Employee ababiichuk is assigned to task 52911 (cell position: [5, 11]) with relevance 66
+Employee andy.seaborne is assigned to task 47311 (cell position: [6, 7]) with relevance 5
+Employee aantonenko is assigned to task 52795 (cell position: [7, 1]) with relevance 99
+Employee njiang is assigned to task 4550 (cell position: [9, 3]) with relevance 1
+Employee purplecabbage is assigned to task 12409 (cell position: [10, 5]) with relevance 93
+Employee atkach is assigned to task 52289 (cell position: [12, 2]) with relevance 69
+Employee davsclaus is assigned to task 5488 (cell position: [14, 0]) with relevance 100
+Total relevance: 508
+
+
+5.2 Logistic ==============================================
+=== Assignment ===
+Relevance of each employee per issue:
+[[  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0  13 100  25   0   0   0]
+ [  0   0   0   0   0   0  81   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0  10  95   0   0   0   0   0   0   0   0  13]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0  11   1   0   0   0   0   0   0   0   0  12]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  2   0   0  94  13   0   2   0   0  38  62   0]
+ [  0   0   0   0   0  81   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0  57   1   0   0   0   0   0   0   0   0   2]
+ [  8   0   0   0   0   0   0   0   0   0   0   0]
+ [ 90   0   0   6  87   0   1   0   0  62  38   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   9   0   0  74   0   0   0]
+ [  0   0   0   0   0   0   3   0   0   0   0   0]
+ [  0  16   0   0   0   0   0   0   0   0   0  21]
+ [  0   0   0   0   0  10   0   0   0   0   0   0]
+ [  0   6   3   0   0   0   0   0   0   0   0  50]]
+Employee andrus is assigned to task 4016 (cell position: [0, 10]) with relevance 0
+Employee jbellis is assigned to task 3705 (cell position: [1, 9]) with relevance 0
+Employee wesmckinn is assigned to task 47311 (cell position: [2, 7]) with relevance 100
+Employee elserj is assigned to task 9763 (cell position: [3, 6]) with relevance 81
+Employee ababiichuk is assigned to task 52289 (cell position: [5, 2]) with relevance 95
+Employee njiang is assigned to task 4550 (cell position: [9, 3]) with relevance 94
+Employee purplecabbage is assigned to task 12409 (cell position: [10, 5]) with relevance 81
+Employee atkach is assigned to task 52795 (cell position: [12, 1]) with relevance 57
+Employee tabish121 is assigned to task 5488 (cell position: [13, 0]) with relevance 8
+Employee davsclaus is assigned to task 5632 (cell position: [14, 4]) with relevance 87
+Employee shazron is assigned to task 47260 (cell position: [16, 8]) with relevance 74
+Employee onechiporenko is assigned to task 52911 (cell position: [20, 11]) with relevance 50
+Total relevance: 727
+
+
+5.3 SVM ==============================================
+=== Assignment ===
+Relevance of each employee per issue:
+[[ 3  3  3  1  1  3  3  3  3  2  1  3]
+ [ 2  3  3  2  1  4  2  5  3  2  1  3]
+ [ 3  2  3  1  0  2  3  2 10  2  1  4]
+ [ 2  4  3  1  1  5  3  8  5  3  1  3]
+ [ 3  3  3  2  1  5  3 11  3  2  1  4]
+ [ 2 12 14  1  0  3  2  3  5  1  0  9]
+ [ 2  3  2  1  1  3  2 10  3  2  1  3]
+ [ 3 14 14  1  0  4  3  5  6  2  0  9]
+ [ 5  2  2  1  1  2  4  1  2  2  0  7]
+ [ 7  2  2 23 19  2  7  4  3  8 19  4]
+ [ 3  2  2  1  0 14  3  2  5  1  0  3]
+ [ 2  2  3  1  1  3  2  5  5  3  1  3]
+ [ 2 15 16  1  0  2  2  2  5  1  0  9]
+ [ 8  2  2  1  1  2 11  2  4 14  1  2]
+ [36  3  3 54 63  4 34  6  7 43 62 14]
+ [ 2  3  2  1  1  5  2  9  2  1  1  2]
+ [ 4  2  2  1  0  7  4  2  9  2  1  3]
+ [ 4  3  3  5  6  4  4  8  4  4  5  3]
+ [ 3  7  5  1  1  6  3  5  7  3  1  5]
+ [ 1  2  2  1  1 17  2  4  3  1  1  2]
+ [ 2 10 11  1  1  3  2  6  6  2  1  8]]
+Employee wesmckinn is assigned to task 47260 (cell position: [2, 8]) with relevance 10
+Employee djohnson is assigned to task 47311 (cell position: [4, 7]) with relevance 11
+Employee ababiichuk is assigned to task 52911 (cell position: [5, 11]) with relevance 9
+Employee aantonenko is assigned to task 52795 (cell position: [7, 1]) with relevance 14
+Employee adobejira is assigned to task 5488 (cell position: [8, 0]) with relevance 5
+Employee njiang is assigned to task 4550 (cell position: [9, 3]) with relevance 23
+Employee atkach is assigned to task 52289 (cell position: [12, 2]) with relevance 16
+Employee tabish121 is assigned to task 3705 (cell position: [13, 9]) with relevance 14
+Employee davsclaus is assigned to task 4016 (cell position: [14, 10]) with relevance 62
+Employee shazron is assigned to task 9763 (cell position: [16, 6]) with relevance 4
+Employee ancosen is assigned to task 5632 (cell position: [17, 4]) with relevance 6
+Employee bowserj is assigned to task 12409 (cell position: [19, 5]) with relevance 17
+Total relevance: 191
+
+
+5.4 k-NN ==============================================
+=== Assignment ===
+Relevance of each employee per issue:
+[[ 0  0  0  0  0  0  0  0 12  0  0  0]
+ [ 6  0  0  0  0  0  0 12  0 12  0  0]
+ [ 0  0  0  0  0  0  0 25  6  0  0  0]
+ [ 0  0  0  0  0  0 12  0  6  6  0  0]
+ [ 6  0  0  0  0  6  0  0  6  6  0  0]
+ [ 0 12 38  0  0  6  0  0  0  0  0  0]
+ [ 6  0  0  0  0  0  0 25  0  0  0  0]
+ [ 0 12 12  0  0  0  0  0  0  0  0  6]
+ [ 6  0  0  0  0  6  6  0  0  6  0 25]
+ [ 6  0  0 75 38 12 25  6  6 38 31  0]
+ [ 0  0  0  0  0 31  0  6 19  0  0  6]
+ [ 0  0  0  0  0  0  0  6  0  0  0 12]
+ [ 0 19 44  0  0  6  0  0  0  0  0  0]
+ [12  0  0  0  0  0  6  6  0  6  0 19]
+ [31 25  0 25 50  6 44  6  6  0 44  0]
+ [ 0  0  0  0  0  0  0  6  6  0  0  6]
+ [ 0  0  0  0  0  6  0  0  6  0  0  0]
+ [12  0  0  0 12  0  6  0  0 19 25  0]
+ [12 25  0  0  0  6  0  0 19  6  0 25]
+ [ 0  0  0  0  0 12  0  0  6  0  0  0]
+ [ 0  6  6  0  0  0  0  0  0  0  0  0]]
+Employee andrus is assigned to task 47260 (cell position: [0, 8]) with relevance 12
+Employee jbellis is assigned to task 3705 (cell position: [1, 9]) with relevance 12
+Employee wesmckinn is assigned to task 47311 (cell position: [2, 7]) with relevance 25
+Employee elserj is assigned to task 9763 (cell position: [3, 6]) with relevance 12
+Employee adobejira is assigned to task 52911 (cell position: [8, 11]) with relevance 25
+Employee njiang is assigned to task 4550 (cell position: [9, 3]) with relevance 75
+Employee purplecabbage is assigned to task 12409 (cell position: [10, 5]) with relevance 31
+Employee atkach is assigned to task 52289 (cell position: [12, 2]) with relevance 44
+Employee tabish121 is assigned to task 5488 (cell position: [13, 0]) with relevance 12
+Employee davsclaus is assigned to task 5632 (cell position: [14, 4]) with relevance 50
+Employee ancosen is assigned to task 4016 (cell position: [17, 10]) with relevance 25
+Employee aonishuk is assigned to task 52795 (cell position: [18, 1]) with relevance 25
+Total relevance: 348
+
+
+5.5 Neural Network ==============================================
+=== Assignment ===
+Relevance of each employee per issue:
+[[  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0  47 100  99   0   0   0]
+ [  0   0   0   0   0   0  53   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   5  86   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0  51   0   0   0   0   0   0   0   0   0   4]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0  23  15   0   0   0   0  20  36   0]
+ [  8   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  0   4  11   0   0   0   0   0   0   0   0   0]
+ [ 20   0   0   0   0   0   0   0   0   0   0   0]
+ [ 71   0   0  77  85   0   0   0   0  77  55   0]
+ [  0   0   0   0   0   0   0   0   0   0   0   0]
+ [  1   0   0   0   0  81   0   0   1   0   0   0]
+ [  0   0   0   0   0   0   0   0   0   3   8   0]
+ [  0  39   1   0   0   0   0   0   0   0   0   7]
+ [  0   0   0   0   0  19   0   0   0   0   0   0]
+ [  0   1   1   0   0   0   0   0   0   0   0  88]]
+Employee andrus is assigned to task 47260 (cell position: [0, 8]) with relevance 0
+Employee jbellis is assigned to task 4550 (cell position: [1, 3]) with relevance 0
+Employee wesmckinn is assigned to task 47311 (cell position: [2, 7]) with relevance 100
+Employee elserj is assigned to task 9763 (cell position: [3, 6]) with relevance 53
+Employee ababiichuk is assigned to task 52289 (cell position: [5, 2]) with relevance 86
+Employee aantonenko is assigned to task 52795 (cell position: [7, 1]) with relevance 51
+Employee njiang is assigned to task 4016 (cell position: [9, 10]) with relevance 36
+Employee tabish121 is assigned to task 5488 (cell position: [13, 0]) with relevance 20
+Employee davsclaus is assigned to task 5632 (cell position: [14, 4]) with relevance 85
+Employee shazron is assigned to task 12409 (cell position: [16, 5]) with relevance 81
+Employee ancosen is assigned to task 3705 (cell position: [17, 9]) with relevance 3
+Employee onechiporenko is assigned to task 52911 (cell position: [20, 11]) with relevance 88
+Total relevance: 603
