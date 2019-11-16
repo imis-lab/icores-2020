@@ -1,2 +1,7 @@
 env/
 .ipynb_checkpoints/
+all_issues.json
+all_issues_minified.json
+hadoop_issues.json
+__pycache__/
+.idea/
